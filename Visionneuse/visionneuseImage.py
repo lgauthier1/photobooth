@@ -22,7 +22,7 @@ YELLOW = 255,242,0
 
 class EventHandler(pyinotify.ProcessEvent):
     def process_IN_CREATE(self, event):
-        print ("///////////Creating:", event.pathname)
+        print "///////////Creating:", event.pathname
         thread_1.my_list.append(getImageName(event.pathname))
 
 class Visionneuse(Thread):
@@ -122,18 +122,18 @@ while True:
 			except Exception:
 				print("Probleme load image:"+imageToLoad)
 			
-			#fondBas=pygame.Surface((surface.current_w,100))
-			#fondBas.fill(WHITE)
+			#fondBas=pygame.Surface((50,50))
+			#fondBas.fill(BLACK)
 			#fenetre.blit(fondBas, (0,surface.current_h-100))
 			
-			fondBas = pygame.image.load("/home/pi/Documents/Visionneuse/Skyline1C.png")
-			fondBas_width=fondBas.get_width()*1
-			fondBas_height=fondBas.get_height()*1
+			fondBas = pygame.image.load("/home/pi/Documents/Visionneuse/annee80.png")
+			#fondBas_width=fondBas.get_width()*1/3
+			#fondBas_height=fondBas.get_height()*1/3
 			
-			fondBas = pygame.transform.scale(fondBas, (fondBas_width,fondBas_height))
-			fenetre.blit(fondBas, (200,surface.current_h-fondBas_height))
+			#fondBas = pygame.transform.scale(fondBas, (fondBas_width,fondBas_height))
+			#fenetre.blit(fondBas, (20,15))
 			mytext = font.render(event.text, True, WHITE)  # True pour antialiasing
-			fenetre.blit(mytext, (surface.current_w-75,surface.current_h-20))
+			fenetre.blit(mytext, (surface.current_w-50,surface.current_h-20))
 			pygame.display.flip()
 			pygame.time.wait(250)
 os.system("pause")
