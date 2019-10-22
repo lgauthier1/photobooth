@@ -22,7 +22,7 @@ YELLOW = 255,242,0
 
 class EventHandler(pyinotify.ProcessEvent):
     def process_IN_CREATE(self, event):
-        print "///////////Creating:", event.pathname
+        print("///////////Creating:", event.pathname)
         thread_1.my_list.append(getImageName(event.pathname))
 
 class Visionneuse(Thread):
@@ -54,19 +54,19 @@ class Visionneuse(Thread):
 			my_event = pygame.event.Event(CHANGEPICTURE, message="/home/pi/Documents/Visionneuse/images/"+getImageName(self.my_list[self.index]),text=StringForDisplay)
 			pygame.event.post(my_event)
 			time.sleep(TEMPO)
-			
+
 	def stop(self):
 		print("Arret du Thread")
 		self.arret=1
 
 # Lib TOOLS:
-def listdirectory(path):  
-	fichier=[]  
+def listdirectory(path):
+	fichier=[]
 	l = glob.glob(path+'/*')
 	l.sort(key=os.path.getmtime)
-	for i in l:  
-		if os.path.isdir(i): fichier.extend(listdirectory(i))  
-		else: fichier.append(i)  
+	for i in l:
+		if os.path.isdir(i): fichier.extend(listdirectory(i))
+		else: fichier.append(i)
 	return fichier
 
 def getImageName(path):
@@ -85,7 +85,7 @@ fenetre = pygame.display.set_mode((surface.current_w, surface.current_h), pygame
 #fenetre = pygame.display.set_mode((surface.current_w, surface.current_h), RESIZABLE)
 font=pygame.font.SysFont('freesans', 18)
 
-# Inotify: 
+# Inotify:
 wm = pyinotify.WatchManager()  # Watch Manager
 mask = pyinotify.IN_CREATE # watched events
 
@@ -121,15 +121,15 @@ while True:
 				fenetre.blit(fond, (0,0))
 			except Exception:
 				print("Probleme load image:"+imageToLoad)
-			
+
 			#fondBas=pygame.Surface((50,50))
 			#fondBas.fill(BLACK)
 			#fenetre.blit(fondBas, (0,surface.current_h-100))
-			
+
 			fondBas = pygame.image.load("/home/pi/Documents/Visionneuse/annee80.png")
 			#fondBas_width=fondBas.get_width()*1/3
 			#fondBas_height=fondBas.get_height()*1/3
-			
+
 			#fondBas = pygame.transform.scale(fondBas, (fondBas_width,fondBas_height))
 			#fenetre.blit(fondBas, (20,15))
 			mytext = font.render(event.text, True, WHITE)  # True pour antialiasing
